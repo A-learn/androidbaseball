@@ -3,11 +3,15 @@ package com.example.baseball;
 import com.example.baseball.R.animator;
 
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Message;
 import android.animation.Animator;
 import android.animation.AnimatorSet;
 import android.app.Activity;
 import android.content.Context;
+import android.util.Log;
 import android.view.Menu;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.animation.Animation;
 import android.view.animation.AnimationSet;
@@ -16,6 +20,7 @@ import android.view.animation.TranslateAnimation;
 import android.view.animation.Animation.AnimationListener;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 public class Result extends Activity {
 	private ImageView imageView1;
@@ -29,26 +34,25 @@ public class Result extends Activity {
 		context1=this;
 		 imageView1= (ImageView)findViewById(R.id.imageView1);
 		 txt1=(TextView)findViewById(R.id.textView1);
-		 //txt1.setVisibility(View.INVISIBLE);
+		 txt1.setVisibility(View.INVISIBLE);
 		 Bundle bundle=this.getIntent().getExtras();
 			int ca =bundle.getInt("case");
 			
-			txt1.setText("1");
-			Animation am = AnimationUtils.loadAnimation(this, R.animator.catchout);
-			imageView1.setAnimation(am);	
-			am.startNow();
+//			txt1.setText("1");
+//			Animation am = AnimationUtils.loadAnimation(this, R.animator.catchout);
+//			imageView1.setAnimation(am);	
+//			am.startNow();
   		
-  		  	/*
+  		  	
 			switch(ca)
 			{
 			case 0x1F:   //軟弱滾地球 刺殺出局
-//				txt1.setText("1");
-//				Animation am = new TranslateAnimation(0,80,0,170);
-//      			am.setDuration( 5000 );
-//      			am.setRepeatCount( 0 ); 
-//      			imageView1.setAnimation(am);
-//      			am.startNow();
-      			
+				txt1.setText("1");
+				Animation am = AnimationUtils.loadAnimation(this, R.animator.roll);
+				imageView1.setAnimation(am);
+				am.startNow();
+				am.setAnimationListener(listener1);
+      		
       			
 //				Animation am = AnimationUtils.loadAnimation(this, R.animator.catchout);
 //				imageView1.setAnimation(am);	
@@ -63,54 +67,39 @@ public class Result extends Activity {
 //				bouncer2.addAnimation( am2 );
 //				imageView1.setAnimation(bouncer2);
 //				bouncer2.startNow();
-//				bouncer.play(R.animator.catchout).before(R.animator.catchout2);
+//				Animator  animator=new 
+//				bouncer.play(R.animator.hit);
 //				bouncer.play(R.animator.catchout2).after(R.animator.catchout);
 //				animatorSet.start();
 				break;
 			case 0x20:   //安打
 				txt1.setText("1");
-//				Animation am3 = AnimationUtils.loadAnimation(this, R.animator.hit);
-//				imageView1.setAnimation(am3);
-//				am3.setAnimationListener(listener1);
-//				am3.startNow();
-//				x=0x20;
-				txt1.setText("1");
-				Animation am2 = new TranslateAnimation(0,80,0,170);
-      			am2.setDuration( 5000 );
-      			am2.setRepeatCount( 0 ); 
-      			imageView1.setAnimation(am2);
-      			am2.startNow();
+				Animation am3 = AnimationUtils.loadAnimation(this, R.animator.hit);
+				imageView1.setAnimation(am3);
+				am3.setAnimationListener(listener1);
+				am3.startNow();
+				x=0x20;
+		
 				break;
 			case 0x21:   //(打擊出去)接殺
 				txt1.setText("1");
-//				Animation am4 = AnimationUtils.loadAnimation(this, R.animator.catchout);
-//				imageView1.setAnimation(am4);
-//				am4.setAnimationListener(listener1);
-//				am4.startNow();
-//				x=0x1f;
-				txt1.setText("1");
-				Animation am3 = new TranslateAnimation(0,80,0,170);
-      			am3.setDuration( 5000 );
-      			am3.setRepeatCount( 0 ); 
-      			imageView1.setAnimation(am3);
-      			am3.startNow();
+				Animation am4 = AnimationUtils.loadAnimation(this, R.animator.catchout);
+				imageView1.setAnimation(am4);
+				am4.setAnimationListener(listener1);
+				am4.startNow();
+				x=0x21;
+				
 				break;
 			case 0x22:   //(打擊出去)界外
 				txt1.setText("1");
-//				Animation am5 = AnimationUtils.loadAnimation(this, R.animator.catchout);
-//				imageView1.setAnimation(am5);
-//				am5.setAnimationListener(listener1);
-//				am5.startNow();
-//				x=0x1f;
-				txt1.setText("1");
-				Animation am5 = new TranslateAnimation(0,80,0,170);
-      			am5.setDuration( 5000 );
-      			am5.setRepeatCount( 0 ); 
-      			imageView1.setAnimation(am5);
-      			am5.startNow();
+				Animation am5 = AnimationUtils.loadAnimation(this, R.animator.out);
+				imageView1.setAnimation(am5);
+				am5.setAnimationListener(listener1);
+				am5.startNow();
+				x=0x22;
 				break;
 			}
-			*/
+		
 		
 
 		
@@ -133,6 +122,15 @@ public Animation.AnimationListener listener1=new AnimationListener() {
 					imageView1.setAnimation(am2);
 					am2.startNow();
 			}
+			 if(x==0x21){
+				 txt1.setText("1");
+					Animation am2 = AnimationUtils.loadAnimation(context1, R.animator.catchout2);
+					imageView1.setAnimation(am2);
+					am2.startNow();
+			}
+			 if(x==0x22){
+				 Result.this.finish();
+			}
 		}
 
 		@Override
@@ -149,8 +147,92 @@ public Animation.AnimationListener listener1=new AnimationListener() {
 
 		
 	};
-	
-	
+	 private double downX=0;
+	 private double downY=0;
+	 private double upX=0;
+	 private double upY=0;
+	private String mDirection;
+	@Override
+	public boolean onTouchEvent(MotionEvent event) {
+	 
+	        float X = event.getX(); // 觸控的 X 軸位置
+	        float Y = event.getY(); // 觸控的 Y 軸位置
+	 
+	        switch (event.getAction()) { // 判斷觸控的動作
+	 
+	        case MotionEvent.ACTION_DOWN: // 按下
+	            downX = event.getX();
+	            downY = event.getY();
+	 
+	            return true;
+	        case MotionEvent.ACTION_MOVE: // 拖曳
+	 
+	            return true;
+	        case MotionEvent.ACTION_UP: // 放開
+	            Log.d("onTouchEvent-ACTION_UP","UP");
+	            upX = event.getX();
+	            upY = event.getY();
+	            double xa=Math.abs(upX-downX);
+	            double y=Math.abs(upY-downY);
+	            double z=Math.sqrt(xa*xa+y*y);
+	            int jiaodu=Math.round((float)(Math.asin(y/z)/Math.PI*180));//角度
+	             
+	            if (upY < downY && jiaodu>45) {//上
+//	                Log.d("onTouchEvent-ACTION_UP","角度:"+jiaodu+", 動作:上");
+//	                mDirection="up";
+	                
+	      		 
+	                
+	                
+	            }else if(upY > downY && jiaodu>45) {//下
+	                Log.d("onTouchEvent-ACTION_UP","角度:"+jiaodu+", 動作:下");
+	                mDirection="down";
+	                Message message = new Message();
+		  			message.what=0x01;             
+		  			this.myHandler.sendMessage(message);
+		  			
+	                
+			
+	             
+	            }else if(upX < downX && jiaodu<=45) {//左
+	                Log.d("onTouchEvent-ACTION_UP","角度:"+jiaodu+", 動作:左");
+	                // 原方向不是向右時，方向轉右
+	                
+	                /*if (mDirection != EAST) {
+	                    mNextDirection = WEST;
+	                }*/
+	            }else if(upX > downX && jiaodu<=45) {//右
+	                Log.d("onTouchEvent-ACTION_UP","角度:"+jiaodu+", 動作:右");
+	                // 原方向不是向左時，方向轉右
+	                this.finish();
+	                
+	                /*if (mDirection ! = WEST) {
+	                    mNextDirection = EAST;
+	                }*/
+	            }
+	            return true;
+	        }
+	 
+	        return super.onTouchEvent(event);
+	    }
+	Handler myHandler = new Handler() {  
+        @Override
+		public void handleMessage(Message msg) {   
+             switch (msg.what) {   
+                  case 0x01:
+                	  
+//                       myBounceView.invalidate();
+                	  txt1.setText("1");
+  					Animation am5 = AnimationUtils.loadAnimation(context1, R.animator.out);
+  					imageView1.setAnimation(am5);
+  					am5.setAnimationListener(listener1);
+  					x=22;
+  					am5.startNow();
+                	  
+                	  }
+             super.handleMessage(msg);   
+        }   
+   };  
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
 		// Inflate the menu; this adds items to the action bar if it is present.

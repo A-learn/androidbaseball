@@ -7,7 +7,8 @@
 	    android:toDegrees="-150"
 	    android:pivotX="50%"
 		android:pivotY="50%" 
-		android:fillAfter="true"  
+		android:fillAfter="true" 
+		 
         android:duration="2000" />
 
 </set>

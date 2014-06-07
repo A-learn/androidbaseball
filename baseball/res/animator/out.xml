@@ -1,10 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
-<animator xmlns:android="http://schemas.android.com/apk/res/android" >
+ <set xmlns:android="http://schemas.android.com/apk/res/android" 
+      android:fillAfter="true">
     <translate
-	android:fromXDelta="30"
-	android:toXDelta="-80"
-	android:fromYDelta="30"
-	android:toYDelta="300"
+	android:fromXDelta="0"
+	android:toXDelta="179"
+	android:fromYDelta="0"
+	android:toYDelta="-31"
 	android:duration="2000"
+	
 	></translate>
-</animator>
+</set>
