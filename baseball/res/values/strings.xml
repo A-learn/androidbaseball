@@ -10,5 +10,7 @@
     <string name="strike">好球</string>
     <string name="bull">壞球</string>
     <string name="title_activity_result">Result</string>
+    <string name="title_activity_login_grade">MainActivity</string>
+    <string name="login">登入&amp;查看</string>
 
 </resources>

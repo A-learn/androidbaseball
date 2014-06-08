@@ -32,6 +32,20 @@ public class msg {
 	 public  static  int getcount(){
 		return count;
 	}
+	 static String grade=""; 
+	 static int gradecode=0; 
+	 static int number=0;
+	 static int hit=0;
+	 static int walk=0;
+	 static double tt=1;
+	 public static String getgrade(){
+		 if(number!=0){
+			 tt=hit/number;
+		 }
+		
+			 grade=number+"+打數+"+hit+"+安打+"+(hit+walk)+"+上壘+"+tt+"+打擊率";
+			 return grade;
+	 }
 	 //synchronized
 	
 }

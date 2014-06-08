@@ -21,5 +21,14 @@
         android:layout_x="99dp"
         android:layout_y="345dp"
         android:src="@drawable/ball" />
+
+    <TextView
+        android:id="@+id/textView2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_x="109dp"
+        android:layout_y="189dp"
+        android:text="TextView"
+        android:textColor="@color/yellow" />
     
  </AbsoluteLayout>

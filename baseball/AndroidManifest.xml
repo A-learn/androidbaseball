@@ -28,6 +28,10 @@
             android:name="com.example.baseball.Result"
             android:label="@string/title_activity_result" >
         </activity>
+        <activity
+            android:name="com.example.baseball.LoginGradeActivity"
+            android:label="@string/title_activity_login_grade" >
+        </activity>
     </application>
 
 </manifest>

@@ -25,7 +25,7 @@ import android.widget.Toast;
 
 public class Result extends Activity {
 	private ImageView imageView1;
-	private TextView txt1;
+	private TextView txt1,txt2;
 	Context context1;
 	int x=0;
 	int ca=0,co=0;
@@ -35,16 +35,13 @@ public class Result extends Activity {
 		setContentView(R.layout.activity_result);
 		context1=this;
 		 imageView1= (ImageView)findViewById(R.id.imageView1);
+		 txt2=(TextView)findViewById(R.id.textView2);
 		 txt1=(TextView)findViewById(R.id.textView1);
 		 txt1.setVisibility(View.INVISIBLE);
+		 txt2.setVisibility(View.INVISIBLE);
 		 Bundle bundle=this.getIntent().getExtras();
 		 ca =bundle.getInt("case");
-			
-//			txt1.setText("1");
-//			Animation am = AnimationUtils.loadAnimation(this, R.animator.catchout);
-//			imageView1.setAnimation(am);	
-//			am.startNow();
-  		
+		
 			
 	
 			new Thread(new myThread()).start();
@@ -67,26 +64,7 @@ public class Result extends Activity {
 					
 		  			message.what=0x1f;             
 		  			Result.this.myHandler.sendMessage(message);
-	      		
-	      			
-//					Animation am = AnimationUtils.loadAnimation(this, R.animator.catchout);
-//					imageView1.setAnimation(am);	
-//					am.startNow();
-//					am.setAnimationListener(listener1);
-//					x=0x1f;
-//	      		  	imageView1.setAnimation(am);
-//	       		  
-//					AnimatorSet bouncer = new AnimatorSet();
-//					AnimationSet bouncer2=new AnimationSet(false );
-//					bouncer2.addAnimation( am );
-//					bouncer2.addAnimation( am2 );
-//					imageView1.setAnimation(bouncer2);
-//					bouncer2.startNow();
-//					Animator  animator=new 
-//					bouncer.play(R.animator.hit);
-//					bouncer.play(R.animator.catchout2).after(R.animator.catchout);
-//					animatorSet.start();
-		  			
+	      						
 					break;
 				case 0x20:   //安打
 				
@@ -110,7 +88,8 @@ public class Result extends Activity {
 					message.what=0xff;      
 				}
 				ca=0xff;
-				 Thread.currentThread().interrupt();   
+				 Thread.currentThread().interrupt(); 
+				
 	       }
 	 }
 public Animation.AnimationListener listener1=new AnimationListener() {
@@ -120,32 +99,37 @@ public Animation.AnimationListener listener1=new AnimationListener() {
 		public void onAnimationEnd(Animation arg0) {
 			// TODO Auto-generated method stub
 			 if(x==0x1f){
-				 txt1.setText("1");
+				 txt2.setText("軟弱滾地球 刺殺出局");
+				 txt2.setVisibility(View.VISIBLE);
 			Animation am2 = AnimationUtils.loadAnimation(context1, R.animator.catchout2);
 			imageView1.setAnimation(am2);
 			am2.startNow();
 			ca=0xff;
 			}
 			 if(x==0x20){
-				 txt1.setText("1");
+				 txt2.setText("(打擊出去)安打");
+				 txt2.setVisibility(View.VISIBLE);
 					Animation am2 = AnimationUtils.loadAnimation(context1, R.animator.hit2);
 					imageView1.setAnimation(am2);
 					am2.startNow();
 					ca=0xff;
 			}
 			 if(x==0x21){
-				 txt1.setText("1");
+				 txt2.setText("(打擊出去)接殺");
+				 txt2.setVisibility(View.VISIBLE);
 					Animation am2 = AnimationUtils.loadAnimation(context1, R.animator.catchout2);
 					imageView1.setAnimation(am2);
 					am2.startNow();
 					ca=0xff;
 			}
 			 if(x==0x22){
+				 txt2.setText("(打擊出去)界外");
+				 txt2.setVisibility(View.VISIBLE);
 				 Result.this.finish();
 			}
 			 ca=0xff;
 			 x=0xff;
-			 
+			
 		}
 
 		@Override
@@ -292,3 +276,14 @@ public Animation.AnimationListener listener1=new AnimationListener() {
 	}
 
 }
+//AnimatorSet bouncer = new AnimatorSet();
+//AnimationSet bouncer2=new AnimationSet(false );
+//bouncer2.addAnimation( am );
+//bouncer2.addAnimation( am2 );
+//imageView1.setAnimation(bouncer2);
+//bouncer2.startNow();
+//Animator  animator=new 
+//bouncer.play(R.animator.hit);
+//bouncer.play(R.animator.catchout2).after(R.animator.catchout);
+//animatorSet.start();
+	

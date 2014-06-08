@@ -21,6 +21,7 @@ public final class R {
     }
     public static final class color {
         public static final int red=0x7f050000;
+        public static final int yellow=0x7f050001;
     }
     public static final class dimen {
         /**  Default screen margins, per the Android Design guidelines. 
@@ -51,15 +52,18 @@ public final class R {
         public static final int ImageView05=0x7f0a0008;
         public static final int ImageView06=0x7f0a0009;
         public static final int abso=0x7f0a0000;
-        public static final int action_settings=0x7f0a0014;
+        public static final int action_settings=0x7f0a0017;
         public static final int button1=0x7f0a0010;
         public static final int button2=0x7f0a0011;
         public static final int button3=0x7f0a000f;
         public static final int button4=0x7f0a000d;
+        public static final int editText1=0x7f0a0015;
         public static final int imageView1=0x7f0a0012;
         public static final int imageView2=0x7f0a000e;
         public static final int imageView3=0x7f0a0006;
         public static final int imageView4=0x7f0a0002;
+        public static final int item=0x7f0a0014;
+        public static final int listView1=0x7f0a0016;
         public static final int textView1=0x7f0a0001;
         public static final int textView2=0x7f0a000c;
         public static final int textView3=0x7f0a000a;
@@ -69,10 +73,13 @@ public final class R {
     public static final class layout {
         public static final int activity_main=0x7f030000;
         public static final int activity_result=0x7f030001;
+        public static final int listitem=0x7f030002;
+        public static final int login_grade=0x7f030003;
     }
     public static final class menu {
-        public static final int main=0x7f090000;
-        public static final int result=0x7f090001;
+        public static final int login_grade=0x7f090000;
+        public static final int main=0x7f090001;
+        public static final int result=0x7f090002;
     }
     public static final class string {
         public static final int action_settings=0x7f070001;
@@ -80,9 +87,11 @@ public final class R {
         public static final int bull=0x7f070007;
         public static final int conn=0x7f070005;
         public static final int hello_world=0x7f070002;
+        public static final int login=0x7f07000a;
         public static final int restart=0x7f070004;
         public static final int start=0x7f070003;
         public static final int strike=0x7f070006;
+        public static final int title_activity_login_grade=0x7f070009;
         public static final int title_activity_result=0x7f070008;
     }
     public static final class style {

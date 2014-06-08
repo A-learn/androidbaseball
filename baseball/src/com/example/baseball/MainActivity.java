@@ -61,6 +61,7 @@ public class MainActivity extends Activity {
 	BufferedReader in ;
 	private boolean start=false;
 	final clithread cc= new clithread();
+	
 	msg p1=null;
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -103,7 +104,7 @@ public class MainActivity extends Activity {
 				//button1.setVisibility(View.INVISIBLE);
 				
 				 text1.setText("");
-				 
+				 com.example.baseball.msg.number++;
 				 
 				 start=true;
 				 Timer timer=new Timer();
@@ -128,7 +129,8 @@ public class MainActivity extends Activity {
 				out.flush();
 				 
 //				c=0;d=0;e=0;f=0;g=0;h=0;i=0;
-				c=d=e=f=g=h=i=0;
+				c4=c5=0;
+				com.example.baseball.msg.number++;
 				Message message = new Message();
 	  			message.what=0x19;             
 	  			MainActivity.this.myHandler.sendMessage(message);
@@ -143,8 +145,12 @@ public class MainActivity extends Activity {
 			@Override
 			public void onClick(View v) {
 				// TODO Auto-generated method stub
-				cli2 cl=new cli2();
-				cl.start();
+				 Intent intent =new Intent();
+ 				  intent.setClass(MainActivity.this, LoginGradeActivity.class);
+ 				 Bundle bundle=new Bundle();
+ 				
+ 				 intent.putExtras(bundle);
+ 				 startActivity(intent); 
 		  }
 			});
 		dialog();
@@ -208,46 +214,51 @@ public class MainActivity extends Activity {
                 	  
                 	  break;
                   case 0x12:
+                	  com.example.baseball.msg.setcount(0);
                 	  ImageView02.setImageResource(R.drawable.redball);
                 	  Toast.makeText(getApplicationContext(), "好球",
   							Toast.LENGTH_SHORT).show();
-                	  com.example.baseball.msg.setcount(0);
+                	
                 	  break;
                   case 0x13:
+                	  com.example.baseball.msg.setcount(0);
                 	  ImageView01.setImageResource(R.drawable.redball);
                 	  Toast.makeText(getApplicationContext(), "好球",
     							Toast.LENGTH_SHORT).show();
-                	  com.example.baseball.msg.setcount(0);
+                	 
                 	  break;
                   case 0x14:
+                	  com.example.baseball.msg.setcount(0);
                 	  ImageView03.setImageResource(R.drawable.redball);
                 	  Toast.makeText(getApplicationContext(), "好球",
     							Toast.LENGTH_SHORT).show();
-                	  com.example.baseball.msg.setcount(0);
+                	
                 	  break;
                   case 0x15:
+                	  com.example.baseball.msg.setcount(0);
                 	  imageView3.setImageResource(R.drawable.yelb);
                 	  Toast.makeText(getApplicationContext(), "壞球",
                 			  Toast.LENGTH_SHORT).show();
-                	  com.example.baseball.msg.setcount(0);
                 	  break;
                   case 0x16:
+                	  com.example.baseball.msg.setcount(0);
                 	  ImageView04.setImageResource(R.drawable.yelb);
                 	  Toast.makeText(getApplicationContext(), "壞球",
-  							Toast.LENGTH_SHORT).show();
-                	  com.example.baseball.msg.setcount(0);
+  							Toast.LENGTH_SHORT).show();              	 
                 	  break;
                   case 0x17:
+                	  com.example.baseball.msg.setcount(0);
                 	  ImageView05.setImageResource(R.drawable.yelb);
                 	  Toast.makeText(getApplicationContext(), "壞球",
   							Toast.LENGTH_SHORT).show();
-                	  com.example.baseball.msg.setcount(0);
+                	 
                 	  break;
                   case 0x18:
+                	  com.example.baseball.msg.setcount(0);
                 	  ImageView06.setImageResource(R.drawable.yelb);
                 	  Toast.makeText(getApplicationContext(), "壞球",
   							Toast.LENGTH_SHORT).show();
-                	  com.example.baseball.msg.setcount(0);
+                	  
                 	  break;
                   case 0x19:
                 	  ImageView02.setImageResource(R.drawable.nonred);
@@ -278,7 +289,7 @@ public class MainActivity extends Activity {
                   	 txt5.setText("保送上壘 下一打席");
                   	 txt5.setVisibility(View.VISIBLE);
                   	  com.example.baseball.msg.setcount(0);
-                  	  
+                  	com.example.baseball.msg.walk++;
                   	  break;
                   case 0x1D:
                    	 
@@ -320,7 +331,7 @@ public class MainActivity extends Activity {
     				bundle.putInt("case",0x20);
     				intent.putExtras(bundle);
     				startActivity(intent); 
-              	 
+    			   	com.example.baseball.msg.hit++;
                   	  break;
                   case 0x21:
                    	 
@@ -470,36 +481,37 @@ public class MainActivity extends Activity {
 	                    //Log.i("msg", "======="+clithread.str);
 	                    
 	            	  } 
-	            	 if(msg.getcount()==0X1E)//過早
+	            	 if(msg.getcount()==0X1E&&co==1)//過早
 	            	  {	Message message = new Message();
 	            		message.what=0X1E;             
 	                    MainActivity.this.myHandler.sendMessage(message);
 	                    new Thread(new myThread3()).start();
-	                   
+	                    co++;
 	            	  }
-	            	 if(msg.getcount()==0X1F)//稍晚
+	            	 if(msg.getcount()==0X1F&&co==1)//稍晚
 	            	  {	Message message = new Message();
 	            		message.what=0X1F;             
 	                    MainActivity.this.myHandler.sendMessage(message);
 	                    new Thread(new myThread3()).start();
+	                    co++;
 	            	  }
-	            	 if(msg.getcount()==0X20)
+	            	 if(msg.getcount()==0X20&&co==1)
 	            	  {	Message message = new Message();
 	            		message.what=0X20;             
 	                    MainActivity.this.myHandler.sendMessage(message);
-	                   
+	                    co++;
 	            	  }
-	            	 if(msg.getcount()==0X21)
+	            	 if(msg.getcount()==0X21&&co==1)
 	            	  {	Message message = new Message();
 	            		message.what=0X21;             
 	                    MainActivity.this.myHandler.sendMessage(message);
-	                   
+	                    co++;
 	            	  }
-	            	 if(msg.getcount()==0X22)
+	            	 if(msg.getcount()==0X22&&co==1)
 	            	  {	Message message = new Message();
 	            		message.what=0X22;             
 	                    MainActivity.this.myHandler.sendMessage(message);
-	                   
+	                    co++;
 	            	  }
 	            	 
 	    		   try {
@@ -529,37 +541,31 @@ public class MainActivity extends Activity {
 			}
 		}
 	}
+	int c4=0,c5=0;
 	class myThread4 implements Runnable { 
 		@Override
 		public void run(){
+		while(true){
+			
 		while(true){
 		  if(msg.getcount()==1)//好球
        	  {	Message message = new Message();
        		message.what=0x12;             
                MainActivity.this.myHandler.sendMessage(message);
-               //Log.i("msg", "======="+clithread.str);
-               while(msg.getcount()==1){
-               	
-               }
+       
+              
        	  }   
        	 if(msg.getcount()==2)
        	  {	Message message = new Message();
        		message.what=0x13;             
                MainActivity.this.myHandler.sendMessage(message);
-               while(msg.getcount()==2){
-                  	
-               }
-               //Log.i("msg", "======="+clithread.str);
-               
+                      
        	  }  
        	 if(msg.getcount()==3)
        	  {	Message message = new Message();
        		message.what=0x14;             
                MainActivity.this.myHandler.sendMessage(message);
-               Log.i("msg", "======="+clithread.str);
-               while(msg.getcount()==3){
-               	
-               }
+             
        	  }  
            
 	
@@ -568,39 +574,29 @@ public class MainActivity extends Activity {
        	  {	Message message = new Message();
        		message.what=0x15;             
                MainActivity.this.myHandler.sendMessage(message);
-               //Log.i("msg", "======="+clithread.str);
-               while(msg.getcount()==4){
-               	
-               }
-             
+           
+
        	  }   
        	 if(msg.getcount()==5)
        	  {	Message message = new Message();
        		message.what=0x16;             
                MainActivity.this.myHandler.sendMessage(message);
-               //Log.i("msg", "======="+clithread.str);
-               while(msg.getcount()==5){
-               	
-               }
-              
+             
+
        	  }  
        	 if(msg.getcount()==6)
        	  {	Message message = new Message();
        		message.what=0x17;             
                MainActivity.this.myHandler.sendMessage(message);
-               //Log.i("msg", "======="+clithread.str);
-               while(msg.getcount()==6){
-               	
-               }
+    
+            
        	  }  
        	 if(msg.getcount()==7)
        	  {	Message message = new Message();
        		message.what=0x18;             
                MainActivity.this.myHandler.sendMessage(message);
-               //Log.i("msg", "======="+clithread.str);
-               while(msg.getcount()==7){
-               	
-               }
+
+              
        	  }
        	try {
 			Thread.sleep(10);
@@ -608,8 +604,12 @@ public class MainActivity extends Activity {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
+		}
 		}//while
 		}
+	}
+	public  clithread getclith(){
+		return cc;
 	}
 	int index=1;
 	public Animation.AnimationListener listener=new AnimationListener() {
@@ -658,37 +658,7 @@ public class MainActivity extends Activity {
 	 });
 	 builder.create().show();
 	 }
-	public void  onAnimationEnd(Animation animation){
-		switch(index){
-		case 1://第一个动画
-        {
-            index++;
-            Animation am3= new RotateAnimation(0, -150, Animation.RELATIVE_TO_SELF, 0.5f, Animation.RELATIVE_TO_SELF, 0.5f); 
-            am3.setDuration( 1000 );
-  		  am3.setRepeatCount(1); 
-  		  am3.setFillAfter(true); 
-  		  imageView2.setAnimation(am3);
-  		 
-  		  am3.startNow();
-            
-          am3.setAnimationListener((AnimationListener) this);
-             
-        }break;
-		case 2://第二个动画
-        {
-            index++;
-            Animation am2 = new RotateAnimation(0, 150, Animation.RELATIVE_TO_SELF, 0.5f, Animation.RELATIVE_TO_SELF, 0.5f);
-  		  am2.setDuration(2000);
-  		  am2.setRepeatCount(0); 
-  		  am2.setFillAfter(true); 
-  		  imageView2.setAnimation(am2);
-  		 
-  		  am2.startNow();
-  		  am2.setAnimationListener((AnimationListener) this);
-             
-        }break;
-		}
-	}
+	
 	//裡面的upX upY downX downY 是float全域變數
 	 private double downX=0;
 	 private double downY=0;
