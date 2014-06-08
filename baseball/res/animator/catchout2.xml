@@ -12,9 +12,9 @@
         />
     <translate
 	android:fromXDelta="10"
-	android:toXDelta="77"
+	android:toXDelta="79"
 	android:fromYDelta="-102"
-	android:toYDelta="-126"
+	android:toYDelta="-131"
 	android:duration="2000"
 	  />
 

@@ -1,5 +1,6 @@
 package com.example.baseball;
 
+import com.example.baseball.MainActivity.myThread;
 import com.example.baseball.R.animator;
 
 import android.os.Bundle;
@@ -27,6 +28,7 @@ public class Result extends Activity {
 	private TextView txt1;
 	Context context1;
 	int x=0;
+	int ca=0,co=0;
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -36,74 +38,81 @@ public class Result extends Activity {
 		 txt1=(TextView)findViewById(R.id.textView1);
 		 txt1.setVisibility(View.INVISIBLE);
 		 Bundle bundle=this.getIntent().getExtras();
-			int ca =bundle.getInt("case");
+		 ca =bundle.getInt("case");
 			
 //			txt1.setText("1");
 //			Animation am = AnimationUtils.loadAnimation(this, R.animator.catchout);
 //			imageView1.setAnimation(am);	
 //			am.startNow();
   		
-  		  	
-			switch(ca)
-			{
-			case 0x1F:   //軟弱滾地球 刺殺出局
-				txt1.setText("1");
-				Animation am = AnimationUtils.loadAnimation(this, R.animator.roll);
-				imageView1.setAnimation(am);
-				am.startNow();
-				am.setAnimationListener(listener1);
-      		
-      			
-//				Animation am = AnimationUtils.loadAnimation(this, R.animator.catchout);
-//				imageView1.setAnimation(am);	
-//				am.startNow();
-//				am.setAnimationListener(listener1);
-//				x=0x1f;
-//      		  	imageView1.setAnimation(am);
-//       		  
-//				AnimatorSet bouncer = new AnimatorSet();
-//				AnimationSet bouncer2=new AnimationSet(false );
-//				bouncer2.addAnimation( am );
-//				bouncer2.addAnimation( am2 );
-//				imageView1.setAnimation(bouncer2);
-//				bouncer2.startNow();
-//				Animator  animator=new 
-//				bouncer.play(R.animator.hit);
-//				bouncer.play(R.animator.catchout2).after(R.animator.catchout);
-//				animatorSet.start();
-				break;
-			case 0x20:   //安打
-				txt1.setText("1");
-				Animation am3 = AnimationUtils.loadAnimation(this, R.animator.hit);
-				imageView1.setAnimation(am3);
-				am3.setAnimationListener(listener1);
-				am3.startNow();
-				x=0x20;
-		
-				break;
-			case 0x21:   //(打擊出去)接殺
-				txt1.setText("1");
-				Animation am4 = AnimationUtils.loadAnimation(this, R.animator.catchout);
-				imageView1.setAnimation(am4);
-				am4.setAnimationListener(listener1);
-				am4.startNow();
-				x=0x21;
-				
-				break;
-			case 0x22:   //(打擊出去)界外
-				txt1.setText("1");
-				Animation am5 = AnimationUtils.loadAnimation(this, R.animator.out);
-				imageView1.setAnimation(am5);
-				am5.setAnimationListener(listener1);
-				am5.startNow();
-				x=0x22;
-				break;
-			}
-		
-		
+			
+	
+			new Thread(new myThread()).start();
 
 		
 	}
+	
+	class myThread implements Runnable {   
+	       @Override
+		public void run() {  
+	    	   Message message = new Message();
+	    	   co++;
+	    	   if(co>1){
+	    		   ca=0xff;
+					Thread.currentThread().interrupt(); 
+	    	   }
+				switch(ca)
+				{
+				case 0x1F:   //軟弱滾地球 刺殺出局
+					
+		  			message.what=0x1f;             
+		  			Result.this.myHandler.sendMessage(message);
+	      		
+	      			
+//					Animation am = AnimationUtils.loadAnimation(this, R.animator.catchout);
+//					imageView1.setAnimation(am);	
+//					am.startNow();
+//					am.setAnimationListener(listener1);
+//					x=0x1f;
+//	      		  	imageView1.setAnimation(am);
+//	       		  
+//					AnimatorSet bouncer = new AnimatorSet();
+//					AnimationSet bouncer2=new AnimationSet(false );
+//					bouncer2.addAnimation( am );
+//					bouncer2.addAnimation( am2 );
+//					imageView1.setAnimation(bouncer2);
+//					bouncer2.startNow();
+//					Animator  animator=new 
+//					bouncer.play(R.animator.hit);
+//					bouncer.play(R.animator.catchout2).after(R.animator.catchout);
+//					animatorSet.start();
+		  			
+					break;
+				case 0x20:   //安打
+				
+		  			message.what=0x20;             
+		  			Result.this.myHandler.sendMessage(message);
+		  		
+					break;
+				case 0x21:   //(打擊出去)接殺
+			
+		  			message.what=0x21;             
+		  			Result.this.myHandler.sendMessage(message);
+		  			
+					break;
+				case 0x22:   //(打擊出去)界外
+				
+		  			message.what=0x22;             
+		  			Result.this.myHandler.sendMessage(message);
+		  			
+					break;
+				case 0xff:
+					message.what=0xff;      
+				}
+				ca=0xff;
+				 Thread.currentThread().interrupt();   
+	       }
+	 }
 public Animation.AnimationListener listener1=new AnimationListener() {
 		
 		
@@ -115,22 +124,28 @@ public Animation.AnimationListener listener1=new AnimationListener() {
 			Animation am2 = AnimationUtils.loadAnimation(context1, R.animator.catchout2);
 			imageView1.setAnimation(am2);
 			am2.startNow();
+			ca=0xff;
 			}
 			 if(x==0x20){
 				 txt1.setText("1");
 					Animation am2 = AnimationUtils.loadAnimation(context1, R.animator.hit2);
 					imageView1.setAnimation(am2);
 					am2.startNow();
+					ca=0xff;
 			}
 			 if(x==0x21){
 				 txt1.setText("1");
 					Animation am2 = AnimationUtils.loadAnimation(context1, R.animator.catchout2);
 					imageView1.setAnimation(am2);
 					am2.startNow();
+					ca=0xff;
 			}
 			 if(x==0x22){
 				 Result.this.finish();
 			}
+			 ca=0xff;
+			 x=0xff;
+			 
 		}
 
 		@Override
@@ -204,7 +219,7 @@ public Animation.AnimationListener listener1=new AnimationListener() {
 	            }else if(upX > downX && jiaodu<=45) {//右
 	                Log.d("onTouchEvent-ACTION_UP","角度:"+jiaodu+", 動作:右");
 	                // 原方向不是向左時，方向轉右
-	                this.finish();
+	                Result.this.finish();
 	                
 	                /*if (mDirection ! = WEST) {
 	                    mNextDirection = EAST;
@@ -220,15 +235,51 @@ public Animation.AnimationListener listener1=new AnimationListener() {
 		public void handleMessage(Message msg) {   
              switch (msg.what) {   
                   case 0x01:
-                	  
-//                       myBounceView.invalidate();
+           
                 	  txt1.setText("1");
   					Animation am5 = AnimationUtils.loadAnimation(context1, R.animator.out);
   					imageView1.setAnimation(am5);
   					am5.setAnimationListener(listener1);
   					x=22;
   					am5.startNow();
-                	  
+                  case 0x1F:   //軟弱滾地球 刺殺出局
+      				txt1.setText("1");
+      				Animation am = AnimationUtils.loadAnimation(context1, R.animator.roll);
+      				imageView1.setAnimation(am);
+      				am.startNow();
+      				am.setAnimationListener(listener1);
+            		
+            			
+
+      				break;
+      			case 0x20:   //安打
+      				txt1.setText("1");
+      				Animation am3 = AnimationUtils.loadAnimation(context1, R.animator.hit);
+      				imageView1.setAnimation(am3);
+      				am3.setAnimationListener(listener1);
+      				am3.startNow();
+      				x=0x20;
+      		
+      				break;
+      			case 0x21:   //(打擊出去)接殺
+      				txt1.setText("1");
+      				Animation am4 = AnimationUtils.loadAnimation(context1, R.animator.catchout);
+      				imageView1.setAnimation(am4);
+      				am4.setAnimationListener(listener1);
+      				am4.startNow();
+      				x=0x21;
+      				
+      				break;
+      			case 0x22:   //(打擊出去)界外
+      				txt1.setText("1");
+      				Animation am6 = AnimationUtils.loadAnimation(context1, R.animator.out);
+      				imageView1.setAnimation(am6);
+      				am6.setAnimationListener(listener1);
+      				am6.startNow();
+      				x=0x22;
+      				break;  
+  					
+  					
                 	  }
              super.handleMessage(msg);   
         }   

@@ -6,7 +6,7 @@
 	android:toXDelta="179"
 	android:fromYDelta="0"
 	android:toYDelta="-31"
-	android:duration="2000"
+	android:duration="1500"
 	
 	></translate>
 </set>
