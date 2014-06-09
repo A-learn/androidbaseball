@@ -101,9 +101,7 @@ public Animation.AnimationListener listener1=new AnimationListener() {
 			 if(x==0x1f){
 				 txt2.setText("軟弱滾地球 刺殺出局");
 				 txt2.setVisibility(View.VISIBLE);
-			Animation am2 = AnimationUtils.loadAnimation(context1, R.animator.catchout2);
-			imageView1.setAnimation(am2);
-			am2.startNow();
+			
 			ca=0xff;
 			}
 			 if(x==0x20){
@@ -226,13 +224,13 @@ public Animation.AnimationListener listener1=new AnimationListener() {
   					am5.setAnimationListener(listener1);
   					x=22;
   					am5.startNow();
-                  case 0x1F:   //軟弱滾地球 刺殺出局
+                  case 0x1f:   //軟弱滾地球 刺殺出局
       				txt1.setText("1");
       				Animation am = AnimationUtils.loadAnimation(context1, R.animator.roll);
       				imageView1.setAnimation(am);
       				am.startNow();
       				am.setAnimationListener(listener1);
-            		
+      				x=0x1f;
             			
 
       				break;

@@ -166,6 +166,7 @@ public class LoginGradeActivity extends Activity {
 	  }
 	SimpleAdapter adapter =null;
 	private void selec(){
+		 data = new ArrayList(); 
 		try{
 			HttpClient client = new DefaultHttpClient();
 			

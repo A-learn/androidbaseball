@@ -100,14 +100,6 @@
         android:text="@string/bull" />
 
     <TextView
-        android:id="@+id/textView4"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_x="236dp"
-        android:layout_y="265dp"
-        android:text="TextView" />
-
-    <TextView
         android:id="@+id/textView2"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -121,7 +113,7 @@
         android:layout_height="wrap_content"
         android:layout_x="226dp"
         android:layout_y="203dp"
-        android:text="Button" />
+        android:text="排行榜" />
 
     <ImageView
         android:id="@+id/imageView2"

@@ -52,23 +52,22 @@ public final class R {
         public static final int ImageView05=0x7f0a0008;
         public static final int ImageView06=0x7f0a0009;
         public static final int abso=0x7f0a0000;
-        public static final int action_settings=0x7f0a0017;
-        public static final int button1=0x7f0a0010;
-        public static final int button2=0x7f0a0011;
-        public static final int button3=0x7f0a000f;
-        public static final int button4=0x7f0a000d;
-        public static final int editText1=0x7f0a0015;
-        public static final int imageView1=0x7f0a0012;
-        public static final int imageView2=0x7f0a000e;
+        public static final int action_settings=0x7f0a0016;
+        public static final int button1=0x7f0a000f;
+        public static final int button2=0x7f0a0010;
+        public static final int button3=0x7f0a000e;
+        public static final int button4=0x7f0a000c;
+        public static final int editText1=0x7f0a0014;
+        public static final int imageView1=0x7f0a0011;
+        public static final int imageView2=0x7f0a000d;
         public static final int imageView3=0x7f0a0006;
         public static final int imageView4=0x7f0a0002;
-        public static final int item=0x7f0a0014;
-        public static final int listView1=0x7f0a0016;
+        public static final int item=0x7f0a0013;
+        public static final int listView1=0x7f0a0015;
         public static final int textView1=0x7f0a0001;
-        public static final int textView2=0x7f0a000c;
+        public static final int textView2=0x7f0a000b;
         public static final int textView3=0x7f0a000a;
-        public static final int textView4=0x7f0a000b;
-        public static final int textView5=0x7f0a0013;
+        public static final int textView5=0x7f0a0012;
     }
     public static final class layout {
         public static final int activity_main=0x7f030000;

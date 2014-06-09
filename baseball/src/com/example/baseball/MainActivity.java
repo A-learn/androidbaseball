@@ -111,6 +111,7 @@ public class MainActivity extends Activity {
        		  timer.schedule(timerTask, 0,100);
        		  new Thread(new myThread2()).start();
        		  new Thread(new myThread4()).start();
+       		 new Thread(new myThread5()).start();
 //				Message message = new Message();
 //            	
 //    			message.what=0x10;             
@@ -130,6 +131,7 @@ public class MainActivity extends Activity {
 				 
 //				c=0;d=0;e=0;f=0;g=0;h=0;i=0;
 				c4=c5=0;
+				co=1;
 				com.example.baseball.msg.number++;
 				Message message = new Message();
 	  			message.what=0x19;             
@@ -137,7 +139,7 @@ public class MainActivity extends Activity {
 	  			new Thread(new myThread3()).start();
 			}
 		});
-		txt4=(TextView)findViewById(R.id.textView4);
+		
 		button4=(Button)findViewById(R.id.button4);
 		button4.setOnClickListener(new Button.OnClickListener() {
 			String[] from = {"item"};
@@ -289,7 +291,7 @@ public class MainActivity extends Activity {
                   	 txt5.setText("保送上壘 下一打席");
                   	 txt5.setVisibility(View.VISIBLE);
                   	  com.example.baseball.msg.setcount(0);
-                  	com.example.baseball.msg.walk++;
+                    	com.example.baseball.msg.walk++;
                   	  break;
                   case 0x1D:
                    	 
@@ -344,7 +346,7 @@ public class MainActivity extends Activity {
     				bundle.putInt("case",0x21);
     				intent.putExtras(bundle);
     				startActivity(intent); 
-               	 
+               	 	
                    	  break;
                   case 0x22:
                     	 
@@ -395,18 +397,13 @@ public class MainActivity extends Activity {
             	
             	String x = "";
 				
-            
-            	
-            	
                 msgg=p1.getrev();
             	if(msgg.indexOf("球投出")>=0 )
             	{
 //            		Log.i("msg", "======="+time);
             		message.what=0x10;             
-                    MainActivity.this.myHandler.sendMessage(message);
-                   
-                    
-                   
+                    MainActivity.this.myHandler.sendMessage(message);                 
+                   cx=1;
                    while(msgg.indexOf("球投出")>=0){//直到收到的不是球投出
                 	   msgg=p1.getrev();
                    }
@@ -414,7 +411,6 @@ public class MainActivity extends Activity {
 //                   Log.i("msg", "======="+time);
             	}
             	
-            
                  try {   
                       Thread.sleep(100);    
                  } catch (InterruptedException e) {   
@@ -441,6 +437,7 @@ public class MainActivity extends Activity {
 	String temp="";
 	msg msgx=new msg();
 	  int c=0,d=0,e=0,f=0,g=0,h=0,i=0,co=1;
+	  int cx=1;
 	class myThread2 implements Runnable {   
 	       @Override
 		public void run() {  
@@ -458,20 +455,20 @@ public class MainActivity extends Activity {
 	                    //Log.i("msg", "======="+clithread.str);
 	                    
 	            	  } 
-	            	 if(msg.getcount()==9)//3振
+	            	 if(msg.getcount()==9&&co==1)//3振
 	            	  {	Message message = new Message();
 	            		message.what=0x1B;             
 	                    MainActivity.this.myHandler.sendMessage(message);
-	                    
+	                    co++;
 	                    //Log.i("msg", "======="+clithread.str);
 	                    
 	            	  } 
-	            	 if(msg.getcount()==10)//保送
+	            	 if(msg.getcount()==10&&co==1)//保送
 	            	  {	Message message = new Message();
 	            		message.what=0x1C;             
 	                    MainActivity.this.myHandler.sendMessage(message);
 	                    //Log.i("msg", "======="+clithread.str);
-	                    
+	                    co++;
 	            	  } 
 	            	 if(msg.getcount()==0X1D)//太早
 	            	  {	Message message = new Message();
@@ -507,11 +504,11 @@ public class MainActivity extends Activity {
 	                    MainActivity.this.myHandler.sendMessage(message);
 	                    co++;
 	            	  }
-	            	 if(msg.getcount()==0X22&&co==1)
+	            	 if(msg.getcount()==0X22&&cx==1)
 	            	  {	Message message = new Message();
 	            		message.what=0X22;             
 	                    MainActivity.this.myHandler.sendMessage(message);
-	                    co++;
+	                    cx++;
 	            	  }
 	            	 
 	    		   try {
@@ -545,69 +542,82 @@ public class MainActivity extends Activity {
 	class myThread4 implements Runnable { 
 		@Override
 		public void run(){
-		while(true){
 			
 		while(true){
 		  if(msg.getcount()==1)//好球
-       	  {	Message message = new Message();
-       		message.what=0x12;             
-               MainActivity.this.myHandler.sendMessage(message);
-       
-              
+       	  {	Message message1 = new Message();
+       		message1.what=0x12;             
+               MainActivity.this.myHandler.sendMessage(message1);
+               Log.i("msg", "=======1g");
        	  }   
        	 if(msg.getcount()==2)
-       	  {	Message message = new Message();
-       		message.what=0x13;             
-               MainActivity.this.myHandler.sendMessage(message);
-                      
+       	  {	Message message2 = new Message();
+       		message2.what=0x13;             
+               MainActivity.this.myHandler.sendMessage(message2);
+               Log.i("msg", "=======2g");
        	  }  
        	 if(msg.getcount()==3)
-       	  {	Message message = new Message();
-       		message.what=0x14;             
-               MainActivity.this.myHandler.sendMessage(message);
-             
+       	  {	Message message3 = new Message();
+       		message3.what=0x14;             
+               MainActivity.this.myHandler.sendMessage(message3);
+               Log.i("msg", "=======3g");
        	  }  
            
 	
 		    
-       	 if(msg.getcount()==4)//壞球
-       	  {	Message message = new Message();
-       		message.what=0x15;             
-               MainActivity.this.myHandler.sendMessage(message);
-           
-
-       	  }   
-       	 if(msg.getcount()==5)
-       	  {	Message message = new Message();
-       		message.what=0x16;             
-               MainActivity.this.myHandler.sendMessage(message);
-             
-
-       	  }  
-       	 if(msg.getcount()==6)
-       	  {	Message message = new Message();
-       		message.what=0x17;             
-               MainActivity.this.myHandler.sendMessage(message);
-    
-            
-       	  }  
-       	 if(msg.getcount()==7)
-       	  {	Message message = new Message();
-       		message.what=0x18;             
-               MainActivity.this.myHandler.sendMessage(message);
-
-              
-       	  }
+       	
        	try {
 			Thread.sleep(10);
 		} catch (InterruptedException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		}
+		
 		}//while
 		}
 	}
+	 class myThread5 implements Runnable {   
+	       @Override
+		public void run() {  
+	    	   while(true){
+	    		   if(msg.getcount()==4)//壞球
+	    	       	  {	Message message4 = new Message();
+	    	       		message4.what=0x15;             
+	    	               MainActivity.this.myHandler.sendMessage(message4);
+	    	               Log.i("msg", "=======1b");
+
+	    	       	  }   
+	    	       	 if(msg.getcount()==5)
+	    	       	  {	Message message5 = new Message();
+	    	       		message5.what=0x16;             
+	    	               MainActivity.this.myHandler.sendMessage(message5);
+	    	         
+
+	    	       	  }  
+	    	       	 if(msg.getcount()==6)
+	    	       	  {	Message message6 = new Message();
+	    	       		message6.what=0x17;             
+	    	               MainActivity.this.myHandler.sendMessage(message6);
+	    	               Log.i("msg", "=======3b");
+	    	            
+	    	       	  }  
+	    	       	 if(msg.getcount()==7)
+	    	       	  {	Message message7 = new Message();
+	    	       		message7.what=0x18;             
+	    	               MainActivity.this.myHandler.sendMessage(message7);
+	    	      
+	    	              
+	    	       	  }
+	    			try {
+	    				Thread.sleep(10);
+	    			} catch (InterruptedException e) {
+	    				// TODO Auto-generated catch block
+	    				e.printStackTrace();
+	    			}
+	    	   }
+	       }
+	  }
+	
 	public  clithread getclith(){
 		return cc;
 	}
@@ -638,7 +648,7 @@ public class MainActivity extends Activity {
 	};
 	protected void dialog() {
 	 AlertDialog.Builder builder = new Builder(MainActivity.this);
-	 builder.setMessage("規則:\n 按連線按鈕連線後，準備打擊 之後請默數傳來秒數往上滑 揮棒");
+	 builder.setMessage("規則:\n 按連線按鈕連線後，準備打擊 3秒後回開始投球 往上滑來揮棒打擊");
 	 builder.setTitle("歡迎進入");
 //	 builder.setPositiveButton("離開", new OnClickListener() {
 //

@@ -84,7 +84,7 @@ public class clithread extends Thread{
 		}
 		if(str.indexOf("3振")>=0){
 			try {
-				Thread.sleep(50);
+				Thread.sleep(200);
 				msg.setcount(9);
 			} catch (InterruptedException e1) {
 				// TODO Auto-generated catch block
