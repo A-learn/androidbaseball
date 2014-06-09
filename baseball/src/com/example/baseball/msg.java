@@ -2,6 +2,8 @@ package com.example.baseball;
 
 import org.xml.sax.Parser;
 
+import android.R.integer;
+
 public class msg {
 	protected   String rev="NULL";
 	public   synchronized void setr(String x){
@@ -45,8 +47,8 @@ public class msg {
 			 double hita=(double)hit;
 			 double numbera=(double)number;
 			 double temx=(hita/numbera)*1000;
-			// int ttx=((int)temx)/1000;
-			 tt=((int)temx)/1000;
+			 int temc=(int)temx;
+			 tt=(double)temc/1000;
 		 }
 		
 			 grade=number+"+打數+"+hit+"+安打+"+(hit+walk)+"+上壘+"+tt+"+打擊率";

@@ -76,7 +76,10 @@ public class MainActivity extends Activity {
 				// TODO Auto-generated method stub
 				
 				cc.start();
-				
+				com.example.baseball.msg.number=0;
+				com.example.baseball.msg.hit=0;
+				com.example.baseball.msg.walk=0;
+				com.example.baseball.msg.tt=1;
 //				ImageView02.setImageResource(R.drawable.redball);
 				
 				try {
